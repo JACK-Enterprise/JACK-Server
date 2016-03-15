@@ -1,0 +1,31 @@
+{
+  "name": "JACK-server",
+  "version": "0.0.1",
+  "description": "The server behind the JACK project",
+  "author": "JACK Team",
+  "contributors": [{
+    "name": "Maxime PELTE",
+    "name": "Aurélien DUVAL",
+    "name": "Amram ELBAZ",
+    "email": "elbaz.amram@gmail.com"
+}],
+  "main": "server.js",
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/JACK-Enterprise/JACK-Server.git"
+},
+  "bugs": {
+  "url": "https://github.com/JACK-Enterprise/JACK-Server/issues"
+},
+  "keywords": [
+  "cartography",
+  "JACK",
+  "esgi",
+  "project",
+  "sananes"
+],
+  "dependencies": {
+    "express": "^4.2"
+  },
+  "license": "MIT"
+}
