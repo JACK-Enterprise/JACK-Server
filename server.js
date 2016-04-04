@@ -1,4 +1,5 @@
 var express = require ('express');
+var morgan  = require('morgan');
 var app = express();
 
 app.get('/', function (req, res) {
@@ -6,5 +7,5 @@ app.get('/', function (req, res) {
 });
 
 app.listen(4242, function () {
-  console.log('Example app listening on port 4242!');
+  console.log( 'app listening on port 4242!');
 });

@@ -25,7 +25,8 @@
   "sananes"
 ],
   "dependencies": {
-    "express": "^4.2"
+    "express": "^4.2",
+    "morgan": "1.7"
   },
   "license": "MIT"
 }
