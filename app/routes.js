@@ -4,7 +4,7 @@ module.exports = function(app, passport) {
 	// =====================================
 	// HOME PAGE (with login links) ========
 	// =====================================
-	app.get('/', function(req, res) {
+	app.get('/', persistance, function(req, res) {
 		res.render('index.ejs'); // load the index.ejs file
 	});
 
@@ -12,10 +12,12 @@ module.exports = function(app, passport) {
 	// LOGIN ===============================
 	// =====================================
 	// show the login form
-	app.get('/login', function(req, res) {
-
+	app.get('/login', persistance, function(req, res) {
+		if (req.isAuthenticated())
+			res.redirect('/profile');
 		// render the page and pass in any flash data if it exists
 		res.render('login.ejs', { message: req.flash('loginMessage') });
+
 	});
 
 	// process the login form
@@ -39,7 +41,7 @@ module.exports = function(app, passport) {
 	// SIGNUP ==============================
 	// =====================================
 	// show the signup form
-	app.get('/signup', function(req, res) {
+	app.get('/signup', persistance, function(req, res) {
 		// render the page and pass in any flash data if it exists
 		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
@@ -80,4 +82,14 @@ function isLoggedIn(req, res, next) {
 
 	// if they aren't redirect them to the home page
 	res.redirect('/');
+}
+
+
+function persistance(req, res, next){
+	if (req.isAuthenticated())
+		res.redirect('/profile');
+	//if user is authenticated, redirect him to his main page
+
+	return next();
+	//carry on. 
 }
