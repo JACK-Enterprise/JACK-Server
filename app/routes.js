@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
 
 	// process the login form
 	app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/profile', // redirect to the secure profile section
+            successRedirect : '/home', // redirect to the secure profile section
             failureRedirect : '/login', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
 		}),
@@ -52,6 +52,12 @@ module.exports = function(app, passport) {
 		failureRedirect : '/signup', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
+
+
+
+	app.get('/home', isLoggedIn, function(req, res) {
+		res.render('home.ejs');
+	});
 
 	// =====================================
 	// PROFILE SECTION =========================
@@ -84,12 +90,12 @@ function isLoggedIn(req, res, next) {
 	res.redirect('/');
 }
 
-
+// route middleware
 function persistance(req, res, next){
 	if (req.isAuthenticated())
 		res.redirect('/profile');
 	//if user is authenticated, redirect him to his main page
 
 	return next();
-	//carry on. 
+	//carry on.
 }
