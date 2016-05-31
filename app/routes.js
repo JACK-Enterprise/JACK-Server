@@ -54,10 +54,31 @@ module.exports = function(app, passport) {
 	}));
 
 
-
+// Home page
 	app.get('/home', isLoggedIn, function(req, res) {
 		res.render('home.ejs');
 	});
+
+//Account Manager
+//TODO: include an isAdministrator function to authorize or not this page access
+
+app.get('/accountm', isLoggedIn, function(req, res) {
+	res.render('accountm.ejs');
+});
+
+//Plugins list route
+//TODO: plugins objet to pass to the template for a listing of all the plugins.
+
+app.get('/plugins', isLoggedIn, function(req, res) {
+	res.render('plugins.ejs');
+});
+
+//status route
+//TODO: develop the different features permitting to send the required informations to the template
+//TODO: develop the features that permits to interact with the server.
+app.get('/status', isLoggedIn, function(req, res) {
+	res.render('status.ejs');
+});
 
 	// =====================================
 	// PROFILE SECTION =========================
