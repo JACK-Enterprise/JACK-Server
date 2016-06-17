@@ -1,4 +1,10 @@
 // app/routes.js
+
+var mysql = require('mysql');
+var dbconfig = require('../config/database');
+var connection = mysql.createConnection(dbconfig.connection);
+connection.query('USE ' + dbconfig.database);
+
 module.exports = function(app, passport) {
 
 	// =====================================
@@ -63,7 +69,12 @@ module.exports = function(app, passport) {
 //TODO: include an isAdministrator function to authorize or not this page access
 
 app.get('/accountm', isLoggedIn, function(req, res) {
-	res.render('accountm.ejs');
+	connection.query("SELECT * FROM users", function(err, rows){
+		console.log(rows);
+		res.render('accountm.ejs', {
+			users: rows
+		});
+	});
 });
 
 //Plugins list route

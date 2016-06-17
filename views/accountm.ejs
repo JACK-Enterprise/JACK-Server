@@ -23,6 +23,22 @@
 		<div class="col-sm-6">
 			<div class="well">
 				<h3>Accounts list</h3>
+				<p>
+					<table>
+						<tr>
+      					<th>Username</th>
+      					<th>Email</th>
+      					<th>Role</th>
+   					</tr>
+			<%	for( i = 0; i < users.length; i ++){ %>
+							<tr>
+								<th> 	<%= users[i].username %> </th>
+								<th>	 </th>
+								<th>   </th>
+							</tr>	
+			<%	} %>
+					</table>
+
 
 
 			</div>

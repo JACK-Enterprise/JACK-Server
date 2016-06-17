@@ -1,32 +1,33 @@
--Homepage : 
-	Buttons: -Account Manager
+-Homepage :
+	Buttons:
+		 -Account Manager
 		 -Plugins
 		 -Status
 
 -Account Manager:
 	-Users List:
-	Display Users, mail adresses, roles, and active or not. 
+	Display Users, mail adresses, roles, and active or not.
 
 	-Add New User:
 	Use the signup page. add the roles options. and the activate option.
-	
-	-Modify User:
-	If a user is clicked in users list. same page than signup. only the title and requests are changing. 
 
--Plugins: 
-	-Plugins list: 
-	will browse a database, with the following associative model: 
+	-Modify User:
+	If a user is clicked in users list. same page than signup. only the title and requests are changing.
+
+-Plugins:
+	-Plugins list:
+	will browse a database, with the following associative model:
 		-Plugin Name
 		-Plugin version
 		-Plugin category
 		-Plugin description
 		-Plugin download link
-	
-	-Add new plugin page: 
+
+	-Add new plugin page:
 	Needs a browse button to add the plugin and fields corresponding to database informations
 
 	-Plugin page :
-	A page displaying needed plugin informations, to describe the corresponding plugin. 
+	A page displaying needed plugin informations, to describe the corresponding plugin.
 
 -Status:
 	server status page.
@@ -34,5 +35,4 @@
 			platform availibility
 			An internet access switch
 			An opened to client switch
-			An IP address field.		
-	
+			An IP address field.
