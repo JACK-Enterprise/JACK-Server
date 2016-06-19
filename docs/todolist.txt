@@ -7,6 +7,12 @@
 -Account Manager:
 	-Users List:
 	Display Users, mail adresses, roles, and active or not.
+	To do this, I need to modify the database:
+		User will have the following fields:
+			-username
+			-password
+			-admin
+			-active
 
 	-Add New User:
 	Use the signup page. add the roles options. and the activate option.
