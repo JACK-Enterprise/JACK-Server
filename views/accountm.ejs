@@ -24,7 +24,7 @@
 			<div class="well">
 				<h3>Accounts list</h3>
 				<p>
-					<table>
+					<table  cellpadding="8" cellspacing="1" width="100%">
 						<tr>
       					<th>Username</th>
       					<th>Email</th>
@@ -33,9 +33,17 @@
 			<%	for( i = 0; i < users.length; i ++){ %>
 							<tr>
 								<th> 	<%= users[i].username %> </th>
-								<th>	 </th>
-								<th>   </th>
-							</tr>	
+								<th>	<%= users[i].email %> </th>
+								<th>  <% if (users[i].admin === 0){ %>
+													user
+											<% }else if(users[i].admin === 1){ %>
+													admin
+											<% }else if(users[i].admin === 2){ %>
+													mod
+											<% }else{ %>
+													unknown
+											<% }      %></th>
+							</tr>
 			<%	} %>
 					</table>
 
