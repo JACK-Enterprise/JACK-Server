@@ -22,7 +22,7 @@
 	<% } %>
 
 	<!-- LOGIN FORM -->
-	<form action="/signup" method="post">
+	<form action="/adduser" method="post">
 		<div class="form-group">
 			<label>Username</label>
 			<input type="text" class="form-control" name="username">
@@ -40,13 +40,12 @@
 				<input type="checkbox" class="form-control" name="admin" value="1">
 		</div>
 
-		<button type="submit" class="btn btn-warning btn-lg">Signup</button>
+		<button type="submit" class="btn btn-warning btn-lg">Add</button>
 	</form>
 
 	<hr>
 
-	<p>Already have an account? <a href="/login">Login</a></p>
-	<p>Or go <a href="/">home</a>.</p>
+	<p><a href="/">home</a></p>
 
 </div>
 

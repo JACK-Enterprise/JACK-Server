@@ -47,15 +47,15 @@ module.exports = function(app, passport) {
 	// SIGNUP ==============================
 	// =====================================
 	// show the signup form
-	app.get('/signup', persistance, function(req, res) {
+	app.get('/adduser', isLoggedIn, function(req, res) {
 		// render the page and pass in any flash data if it exists
-		res.render('signup.ejs', { message: req.flash('signupMessage') });
+		res.render('adduser.ejs', { message: req.flash('signupMessage') });
 	});
 
 	// process the signup form
-	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/profile', // redirect to the secure profile section
-		failureRedirect : '/signup', // redirect back to the signup page if there is an error
+	app.post('/adduser', passport.authenticate('local-signup', {
+		successRedirect : '/accountm', // redirect to the secure profile section
+		failureRedirect : '/adduser', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
 
@@ -67,18 +67,28 @@ module.exports = function(app, passport) {
 
 //Account Manager
 //TODO: include an isAdministrator function to authorize or not this page access
-
 app.get('/accountm', isLoggedIn, function(req, res) {
 	connection.query("SELECT * FROM users", function(err, rows){
 		console.log(rows);
 		res.render('accountm.ejs', {
-			users: rows
+			users: rows,
+			message: req.flash('addMessage')
 		});
 	});
 });
 
+//Single Account page
+//TODO: Security upgrade about account rights.
+app.get('/account/:username', isLoggedIn, function(req, res) {
+			connection.query("SELECT * FROM users WHERE username = ?",[req.params.username.slice(1)], function(err, rows){
+				res.render('account.ejs',{
+					user:rows[0]
+				});
+		});
+})
+
 //Plugins list route
-//TODO: plugins objet to pass to the template for a listing of all the plugins.
+//TODO: plugins object to pass to the template for a listing of all the plugins.
 
 app.get('/plugins', isLoggedIn, function(req, res) {
 	res.render('plugins.ejs');

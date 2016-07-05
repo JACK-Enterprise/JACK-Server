@@ -53,29 +53,46 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (rows.length) {
-                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                    return done(null, false, req.flash('addMessage', 'That username is already taken.'));
                 } else {
-                    //TODO: HERE IMPLEMENTS THE EMAIL COMPARISON
-                    // if there is no user with that username
-                    // create the user
-                    var newUserMysql = {
-                        username: username,
-                        password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
-                        email:    req.body.email,
-                        admin:    req.body.admin
-                    };
+                  connection.query("SELECT * FROM users WHERE email = ?",[req.body.email], function(err, rows) {
+                      if (err)
+                          return done(err);
+                      if (rows.length) {
+                          return done(null, false, req.flash('addMessage', 'That email is already taken.'));
+                      } else {
+                          // if there is no user with that username
+                          // or that email
+                          // create the user
+                          if (!req.body.admin)
+                            admin = 0
+                          else
+                            admin = req.body.admin;
+                          var newUserMysql = {
+                              username: username,
+                              password: bcrypt.hashSync(password, null, null),  // use the generateHash function in our user model
+                              email:    req.body.email,
+                              admin:    admin
+                            };
 
-                    var insertQuery = "INSERT INTO users ( username, password, email, admin ) values (?,?,?,?)";
 
-                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.email, newUserMysql.admin],function(err, rows) {
-                        newUserMysql.id = rows.insertId;
+                            var insertQuery = "INSERT INTO users ( username, password, email, admin ) values (?,?,?,?)";
 
-                        return done(null, newUserMysql);
-                    });
-                }
-            });
-        })
-    );
+                            connection.query(insertQuery,[newUserMysql.username, newUserMysql.password, newUserMysql.email, newUserMysql.admin],function(err, rows) {
+                              if(err){
+                                console.log(err);
+                                return done(null, false, req.flash('addMessage', err));
+                              }
+                              newUserMysql.id = rows.insertId;
+
+                              return done(null, null);
+                            });
+                          }
+                         });
+                       }
+                     });
+           }
+       ));
 
     // =========================================================================
     // LOCAL LOGIN =============================================================
