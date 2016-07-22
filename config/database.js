@@ -6,5 +6,6 @@ module.exports = {
         'password': 'root'
     },
 	'database': 'jackserver',
-    'users_table': 'users'
+    'users_table': 'users',
+    'plugins_table': 'plugins'
 };
