@@ -39,6 +39,7 @@ CREATE TABLE `' + dbconfig.database + '`.`' + dbconfig.plugins_table + '` ( \
       `version` CHAR(10), \
       `description` CHAR(200), \
       `link` CHAR(80) NOT NULL, \
+      `size` INT(10) NOT NULL, \
           PRIMARY KEY (`id`), \
       UNIQUE INDEX `id_UNIQUE` (`id` ASC) \
 )');
