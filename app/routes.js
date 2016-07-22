@@ -1,9 +1,11 @@
 // app/routes.js
 
+var bcrypt = require('bcrypt-nodejs');
 var mysql = require('mysql');
 var dbconfig = require('../config/database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
+
 
 module.exports = function(app, passport) {
 
@@ -85,7 +87,7 @@ app.get('/account/:username', isLoggedIn, function(req, res) {
 					user:rows[0]
 				});
 		});
-})
+});
 
 //Plugins list route
 //TODO: plugins object to pass to the template for a listing of all the plugins.
@@ -102,7 +104,7 @@ app.get('/status', isLoggedIn, function(req, res) {
 });
 
 	// =====================================
-	// PROFILE SECTION =========================
+	// PROFILE SECTION =====================
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
@@ -113,6 +115,71 @@ app.get('/status', isLoggedIn, function(req, res) {
 	});
 
 	// =====================================
+	// EDIT SECTION ========================
+	// =====================================
+	// Permitting account data edition
+	app.get('/edit/:username', isLoggedIn, function(req, res){
+		connection.query("SELECT * FROM users WHERE username = ?",[req.params.username.slice(1)], function(err, rows){
+			res.render('edit.ejs',{
+				user:rows[0]
+			});
+		});
+	});
+
+	app.post('/edit/:username', isLoggedIn, function(req, res){
+		//query de modification
+		//redirection vers la page du profil
+		console.log(req.body.email);
+		console.log(req.body.password);
+		if (req.body.email && req.body.password){
+			connection.query("UPDATE `Users` SET `email`= ?, `password`= ? WHERE `username`= ?;",[req.body.email, bcrypt.hashSync(req.body.password, null, null), req.params.username.slice(1)], function(err, rows){
+				if (err){
+					console.log(err);
+				}
+				res.redirect('/accountm');
+			});
+		}else if (req.body.email) {
+			connection.query("UPDATE `Users` SET `email`= ? WHERE `username`= ?;",[req.body.email, req.params.username.slice(1)], function(err, rows){
+				if (err){
+					console.log(err);
+				}
+				res.redirect('/accountm');
+			});
+		}else if (req.body.password) {
+			connection.query("UPDATE `Users` SET `password`= ? WHERE `username`= ?;",[bcrypt.hashSync(req.body.password, null, null), req.params.username.slice(1)], function(err, rows){
+				if (err){
+					console.log(err);
+				}
+				res.redirect('/accountm');
+		 	});
+		}
+		console.log('edition!!');
+	});
+
+	// =====================================
+	// DELETE SECTION ======================
+	// =====================================
+	// Permitting account data edition
+	app.get('/delete/:username', isLoggedIn, function (req, res){
+		connection.query("SELECT * FROM Users WHERE username = ?",[req.params.username.slice(1)], function(err, rows){
+			res.render('delete.ejs',{
+				user:rows[0]
+			});
+		});
+	});
+
+	app.post('/delete/:username', isLoggedIn, function(req, res){
+		//query de suppression
+		connection.query("DELETE FROM `Users` WHERE `username` = ?",[req.params.username.slice(1)], function(err, rows){
+			if (err){
+				console.log(err);
+			}
+			res.redirect('/accountm');
+		});
+		console.log('deletion!!');
+	});
+
+	// =====================================
 	// LOGOUT ==============================
 	// =====================================
 	app.get('/logout', function(req, res) {
@@ -120,6 +187,7 @@ app.get('/status', isLoggedIn, function(req, res) {
 		res.redirect('/');
 	});
 };
+
 
 // route middleware to make sure
 function isLoggedIn(req, res, next) {

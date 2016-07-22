@@ -22,23 +22,19 @@
 		<!-- LOCAL INFORMATION -->
 		<div class="col-sm-6">
 			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-				<!-- Here we want to insert a view which will display our plugins list
-			 			We could use a MySQL Database to store a simple object that will contain
-						the basic informatiions that we will need :
-						id of the plugin, the pluginname, the author, the type, the description, the link to a more detailed page, the download link.
-						The plugins list will display 10 plugins per page.
-						We could create a json list for each user, linked to its account, and explore it every time he is connected to check which plugin he already downloaded
-					-->
+				<h3><span class="fa fa-user"></span> <%= user.username %>'s account deletion</h3>
 			<p>
 						<strong>username</strong>: <%= user.username %><br/>
 						<strong>email</strong>: <%= user.email %><br/>
 						<strong>admin rights</strong>: <%= user.admin %><br/>
-					</p>
+						You are about to delete this account, are you sure ?
+			</p>
 
-					<a href="/edit/:<%= user.username %>"  class="btn btn-primary btn-lg">Edit</a>
-					<a href="/delete/:<%= user.username %>"  class="btn btn-danger btn-lg">Delete</a>
 
+				<form action="/delete/:<%= user.username %>" method="post">
+					<a href="/account/:<%= user.username %>"  class="btn btn-primary btn-lg">Cancel</a>
+					<button type="submit" class="btn btn-danger btn-lg">Delete</button>
+				</form>
 			</div>
 		</div>
 
