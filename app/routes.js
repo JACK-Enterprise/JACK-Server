@@ -93,7 +93,13 @@ app.get('/account/:username', isLoggedIn, function(req, res) {
 //TODO: plugins object to pass to the template for a listing of all the plugins.
 
 app.get('/plugins', isLoggedIn, function(req, res) {
-	res.render('plugins.ejs');
+	connection.query("SELECT * FROM plugins", function(err, rows){
+		console.log(rows);
+		res.render('plugins.ejs', {
+			plugins: rows,
+			message: req.flash('addMessage')
+		});
+	});
 });
 
 //status route

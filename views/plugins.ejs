@@ -16,13 +16,31 @@
 		<h1><span class="fa fa-plug"></span>Plugins</h1>
 		<% include ./partials/menu.ejs %>
 	</div>
+	<% if (message.length > 0) { %>
+		<div class="alert alert-danger"><%= message %></div>
+	<% } %>
 
 	<div class="row">
 
-		<!-- LOCAL INFORMATION -->
 		<div class="col-sm-12">
 			<div class="well">
+				<a href="/addplugin" class="btn btn-primary	 btn-sm">Add a Plugin</a>
 				<h3>Plugins list</h3>
+				<p>
+					<table  cellpadding="8" cellspacing="1" width="100%">
+						<tr>
+      					<th>Name</th>
+      					<th>Author</th>
+      					<th>Size</th>
+   					</tr>
+			<%	for( i = 0; i < plugins.length; i ++){ %>
+							<tr>
+								<th> <a href="/plugin/:<%= plugins[i].name %>">	<%= plugins[i].name %> </a> </th>
+								<th>	<%= plugins[i].author %> </th>
+								<th>  <%= plugins[i].size %> B </th>
+							</tr>
+			<%	} %>
+					</table>
 
 			</div>
 		</div>
