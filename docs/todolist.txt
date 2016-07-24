@@ -25,7 +25,6 @@
 	will browse a database, with the following associative model:
 		-Plugin Name
 		-Plugin version
-		-Plugin category
 		-Plugin description
 		-Plugin download link
 
