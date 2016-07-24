@@ -1,0 +1,54 @@
+<!-- Todo -->
+<!-- views/addplugin.ejs -->
+<!doctype html>
+<html>
+<head>
+	<title>Adding a plugin</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
+</head>
+<body>
+<div class="container">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-anchor"></span> New Plugin </h1>
+		<% include ./partials/menu.ejs %>
+	</div>
+
+	<div class="row">
+
+		<!-- LOCAL INFORMATION -->
+		<div class="col-sm-6">
+			<div class="well">
+				<h3><span class="fa fa-cube"></span> Plugin Informations </h3>
+        <form action="/addplugin" method="post">
+          <div class="form-group">
+            <label>Plugin Name</label>
+            <input type="text" class="form-control" name="name">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="description">
+          </div>
+          <div class="form-group">
+            <label>Version</label>
+            <input type="text" class="form-control" name="version">
+          </div>
+          <div class="form-group">
+              <label>Author</label>
+              <input type="text" class="form-control" name="author">
+          </div>
+          <button type="submit" class="btn btn-warning btn-lg">Add</button>
+        </form>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+	<% include ./partials/footer %>
+</body>
+</html>
