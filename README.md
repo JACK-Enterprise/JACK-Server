@@ -21,6 +21,7 @@ For the annual project of the 3rd year in software engineering at ESGI
 
 ###Required stuff:
 -Node.js (at least 4.^)
+
 -MySQL server
 
 ###To run it :
