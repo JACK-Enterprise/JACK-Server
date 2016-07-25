@@ -1,9 +1,9 @@
-module.exports = function(app, passport, isLoggedIn, connection) {
+module.exports = function(app, passport, isAdmin, connection) {
   // =====================================
   // EDIT SECTION ========================
   // =====================================
   // Permitting account data edition
-  app.get('/edit/:username', isLoggedIn, function(req, res){
+  app.get('/edit/:username', isAdmin, function(req, res){
     connection.query("SELECT * FROM users WHERE username = ?",[req.params.username.slice(1)], function(err, rows){
       res.render('edit.ejs',{
         user:rows[0]
@@ -11,7 +11,7 @@ module.exports = function(app, passport, isLoggedIn, connection) {
     });
   });
 
-  app.post('/edit/:username', isLoggedIn, function(req, res){
+  app.post('/edit/:username', isAdmin, function(req, res){
     //query de modification
     //redirection vers la page du profil
     console.log(req.body.email);

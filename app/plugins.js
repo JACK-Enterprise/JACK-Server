@@ -3,14 +3,15 @@ var http = require('http');
 var util = require('util');
 var path = require("path");
 
-module.exports = function(app, passport, isLoggedIn, connection) {
+module.exports = function(app, passport, isLoggedIn, isAdmin, connection) {
   //Plugins list route
   app.get('/plugins', isLoggedIn, function(req, res) {
   	connection.query("SELECT * FROM plugins", function(err, rows){
   		console.log(rows);
   		res.render('plugins.ejs', {
   			plugins: rows,
-  			message: req.flash('message')
+  			message: req.flash('message'),
+        user: req.user
   		});
   	});
   });
@@ -21,7 +22,8 @@ module.exports = function(app, passport, isLoggedIn, connection) {
         console.log(err)
       }
       res.render('plugin.ejs', {
-        pluginfile: rows[0]
+        pluginfile: rows[0],
+        user: req.user
       });
     });
   });
@@ -33,11 +35,13 @@ module.exports = function(app, passport, isLoggedIn, connection) {
       });
   });
 
-  app.get('/addplugin', isLoggedIn, function(req, res){
-  	res.render('addplugin.ejs');
+  app.get('/addplugin', isAdmin, function(req, res){
+  	res.render('addplugin.ejs',{
+      user: req.user
+    });
   });
 
-  app.post('/addplugin', isLoggedIn, function(req, res){
+  app.post('/addplugin', isAdmin, function(req, res){
     var form = new formidable.IncomingForm();
     form.uploadDir = __dirname +'/uploads/';
     form.maxFieldsSize = 30 * 1024 * 1024;

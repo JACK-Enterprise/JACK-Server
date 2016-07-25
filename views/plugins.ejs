@@ -24,7 +24,9 @@
 
 		<div class="col-sm-12">
 			<div class="well">
+				<% if (user.admin){ %>
 				<a href="/addplugin" class="btn btn-primary	 btn-sm">Add a Plugin</a>
+				<% }                %>
 				<h3>Plugins list</h3>
 				<p>
 					<table  cellpadding="8" cellspacing="1" width="100%">
