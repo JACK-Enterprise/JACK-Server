@@ -1,8 +1,8 @@
-<!-- views/profile.ejs -->
+<!-- views/plugin.ejs -->
 <!doctype html>
 <html>
 <head>
-	<title><%= plugin.name %></title>
+	<title><%= pluginfile.name %></title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<style>
@@ -13,24 +13,23 @@
 <div class="container">
 
 	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
+		<h1><span class="fa fa-anchor"></span> <%= pluginfile.name %> Page</h1>
 		<% include ./partials/menu.ejs %>
 	</div>
 
 	<div class="row">
 
-		<!-- LOCAL INFORMATION -->
 		<div class="col-sm-6">
 			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-			<p>
-						<strong> <%= plugin.name %></strong><br/>
-						<%= plugin.author %><br/>
-					  <%= plugin.version %><br/>
+				<h3><span class="fa fa-cube"></span> Plugin</h3>
+					<p>
+						<strong> <%= pluginfile.name %></strong><br/>
+						<strong>Author</strong>: <%= pluginfile.author %> <br/>
+					  <strong>Version</strong>: <%= pluginfile.version %> <br/>
+						<%= pluginfile.description %> <br/>
+						<strong>Size</strong>:<%= pluginfile.size /10000 %> MB <br/>
 					</p>
-
-					<a href=":<%= plugin.link %>"  class="btn btn-primary btn-lg">Download</a>
-
+				<a href="<%= pluginfile.link %>"  class="btn btn-primary btn-lg">Download</a>
 			</div>
 		</div>
 

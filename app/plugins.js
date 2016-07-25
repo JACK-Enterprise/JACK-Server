@@ -16,8 +16,15 @@ module.exports = function(app, passport, isLoggedIn, connection) {
   	});
   });
 
-  app.get('/plugin/:pluginname', isLoggedIn, function(req, res){
-  	res.render('plugin.ejs');
+  app.get('/plugin/:pluginid', isLoggedIn, function(req, res){
+    connection.query("SELECT * FROM plugins WHERE id = ?",[req.params.pluginid.slice(1)], function(err, rows){
+      if (err){
+        console.log(err)
+      }
+      res.render('plugin.ejs', {
+        pluginfile: rows[0]
+      });
+    });
   });
 
   app.get('/addplugin', isLoggedIn, function(req, res){
@@ -27,7 +34,6 @@ module.exports = function(app, passport, isLoggedIn, connection) {
   app.post('/addplugin', isLoggedIn, function(req, res){
     var form = new formidable.IncomingForm();
     form.uploadDir = __dirname +'/uploads/';
-    form.encoding = 'utf-8';
     form.maxFieldsSize = 30 * 1024 * 1024;
     form.keepExtensions = true;
     form.parse(req, function(err, fields, files) {
