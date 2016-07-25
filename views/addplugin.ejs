@@ -24,7 +24,7 @@
 		<div class="col-sm-6">
 			<div class="well">
 				<h3><span class="fa fa-cube"></span> Plugin Informations </h3>
-        <form action="/addplugin" method="post">
+        <form action="/addplugin" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label>Plugin Name</label>
             <input type="text" class="form-control" name="name">
@@ -41,7 +41,10 @@
               <label>Author</label>
               <input type="text" class="form-control" name="author">
           </div>
-          <button type="submit" class="btn btn-warning btn-lg">Add</button>
+					<div>
+					<input type="file" name="upload" multiple="multiple"><br>
+					<input type="submit" value="Upload" class="btn btn-warning btn-lg">
+					</div>
         </form>
 			</div>
 		</div>
