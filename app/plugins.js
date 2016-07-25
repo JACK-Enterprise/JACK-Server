@@ -1,7 +1,6 @@
 var formidable = require('formidable');
 var http = require('http');
 var util = require('util');
-var fs   = require('fs-extra');
 var path = require("path");
 
 module.exports = function(app, passport, isLoggedIn, connection) {
@@ -25,6 +24,13 @@ module.exports = function(app, passport, isLoggedIn, connection) {
         pluginfile: rows[0]
       });
     });
+  });
+
+  app.get('/download/:pluginid', isLoggedIn, function(req, res){
+    connection.query("SELECT * FROM plugins WHERE id = ?",[req.params.pluginid.slice(1)], function(err, rows){
+        pluginfile = rows[0];
+        res.download(pluginfile.link);
+      });
   });
 
   app.get('/addplugin', isLoggedIn, function(req, res){
